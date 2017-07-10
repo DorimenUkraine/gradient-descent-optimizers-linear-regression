@@ -1,15 +1,5 @@
-
-# coding: utf-8
-
-# In[217]:
-
-
 import numpy as np
 import matplotlib.pyplot as plt
-
-
-# In[218]:
-
 
 def h(a,b,x): #hypothesis function
     return a*x+b
@@ -33,10 +23,6 @@ def shuffle(x,y):
     np.random.shuffle(s)
     return x[s], y[s]
 
-
-# In[219]:
-
-
 def vanilla_gradient_descent(a,b,x,y,lr=1e-5,epsilon=1e-4):
     prev_error = 0
     error = np.array([])
@@ -51,10 +37,6 @@ def vanilla_gradient_descent(a,b,x,y,lr=1e-5,epsilon=1e-4):
         a -= lr * gradient_a
         b -= lr * gradient_b
     return a, b, error
-
-
-# In[220]:
-
 
 def momentum_gradient_descent(a,b,x,y,lr=1e-5,momentum=0.9,epsilon=1e-4, batch_size=0):
     if batch_size == 0: batch_size = len(x)
@@ -77,10 +59,6 @@ def momentum_gradient_descent(a,b,x,y,lr=1e-5,momentum=0.9,epsilon=1e-4, batch_s
         prev_grad_b = lr * gradient_b + momentum * prev_grad_b
     return a, b, error
 
-
-# In[221]:
-
-
 def adagrad_gradient_descent(a, b, x, y, lr=1e-5, epsilon=1e-4):
     prev_error = 0
     adagrad_a = 0
@@ -100,10 +78,6 @@ def adagrad_gradient_descent(a, b, x, y, lr=1e-5, epsilon=1e-4):
         b -= (lr / (adagrad_b**0.5 + 1e-8)) * gradient_b
     return a, b, error
 
-
-# In[222]:
-
-
 def rmsprop_gradient_descent(a, b, x, y, lr=1e-5, gamma=0.9, epsilon=1e-4):
     prev_error = 0
     rmsprop_a = 0
@@ -122,10 +96,6 @@ def rmsprop_gradient_descent(a, b, x, y, lr=1e-5, gamma=0.9, epsilon=1e-4):
         a -= (lr / (rmsprop_a**0.5 + 1e-8)) * gradient_a
         b -= (lr / (rmsprop_b**0.5 + 1e-8)) * gradient_b
     return a, b, error
-
-
-# In[223]:
-
 
 def adam_gradient_descent(a, b, x, y, lr=1e-5, b1=0.9, b2=0.999, epsilon=1e-4):
     prev_error = 0
@@ -154,10 +124,6 @@ def adam_gradient_descent(a, b, x, y, lr=1e-5, b1=0.9, b2=0.999, epsilon=1e-4):
         b -= (lr*moment_m_b) / (moment_v_b**0.5 + 1e-8)
     return a, b, error
 
-
-# In[224]:
-
-
 def adamax_gradient_descent(a, b, x, y, lr=1e-5, b1=0.9, b2=0.999, epsilon=1e-4):
     prev_error = 0
     m_a = u_a = m_b = u_b = 0
@@ -180,10 +146,6 @@ def adamax_gradient_descent(a, b, x, y, lr=1e-5, b1=0.9, b2=0.999, epsilon=1e-4)
         a -= (lr / (1-(b1**t)))*(m_a/u_a)
         b -= (lr / (1-(b1**t)))*(m_b/u_b)
     return a, b, error
-
-
-# In[225]:
-
 
 ''' FIXME: better implementation '''
 def adadelta_gradient_descent(a, b, x, y, lr=1e-5, gamma=0.9, epsilon=1e-4):
@@ -214,10 +176,6 @@ def adadelta_gradient_descent(a, b, x, y, lr=1e-5, gamma=0.9, epsilon=1e-4):
         b += v_b
     return a, b, error
 
-
-# In[226]:
-
-
 def nesterov_gradient_descent(a, b, x, y, lr=1e-5, gamma=0.9, epsilon=1e-4):
     prev_error = 0
     v_a = v_b = 0
@@ -240,7 +198,7 @@ def nesterov_gradient_descent(a, b, x, y, lr=1e-5, gamma=0.9, epsilon=1e-4):
     return a, b, error
 
 
-# In[227]:
+# In[275]:
 
 
 def nadam_gradient_descent(a, b, x, y, lr=1e-5, b1=0.9, b2=0.999, epsilon=1e-4):
@@ -271,7 +229,7 @@ def nadam_gradient_descent(a, b, x, y, lr=1e-5, b1=0.9, b2=0.999, epsilon=1e-4):
     return a, b, error
 
 
-# In[228]:
+# In[276]:
 
 
 x, y = generate_data(1000)
@@ -282,21 +240,13 @@ y -= np.mean(y)
 y /= np.std(y)
 
 
-# In[229]:
+# In[277]:
 
 
 regression_subplot = plt.subplot(221)
 error_subplot = plt.subplot(222)
 
-
-# In[230]:
-
-
 a_0, b_0 = np.random.rand(), np.random.rand()
-
-
-# In[231]:
-
 
 '''
 vanilla
@@ -307,114 +257,78 @@ regression_subplot.plot(x, prediction, color="#20B2AA", label="vanilla")
 error_subplot.plot(error, color="#20B2AA", label="vanilla")
 print("a =",a,", b =",b)
 
-
-# In[232]:
-
-
 '''
 momentum_batch
 '''
-a, b, error = momentum_gradient_descent(np.random.rand(), np.random.rand(), x, y, lr=1e-1, batch_size=250, momentum=0.9)
+a, b, error = momentum_gradient_descent(a_0, b_0, x, y, lr=1e-1, batch_size=250, momentum=0.9)
 prediction = h(a,b,x)
 regression_subplot.plot(x, prediction, color="r", label="momentum_batch")
 error_subplot.plot(error, color="r", label="momentum_batch")
 print("a =",a,", b =",b)
 
-
-# In[233]:
-
-
 '''
 adagrad
 '''
-a, b, error = adagrad_gradient_descent(np.random.rand(), np.random.rand(), x, y, lr=1e-1)
+a, b, error = adagrad_gradient_descent(a_0, b_0, x, y, lr=1e-1)
 prediction = h(a,b,x)
 regression_subplot.plot(x, prediction, color="g", label="adagrad")
 error_subplot.plot(error, color="g", label="adagrad")
 print("a =",a,", b =",b)
 
-
-# In[234]:
-
-
 '''
 rmsprop
 '''
-a, b, error = rmsprop_gradient_descent(np.random.rand(), np.random.rand(), x, y, lr=1e-1)
+a, b, error = rmsprop_gradient_descent(a_0, b_0, x, y, lr=1e-1)
 prediction = h(a,b,x)
 regression_subplot.plot(x, prediction, color="#ff008c", label="rmsprop")
 error_subplot.plot(error, color="#ff008c", label="rmsprop")
 print("a =",a,", b =",b)
 
-
-# In[235]:
-
-
 '''
 adam
 '''
-a, b, error = adam_gradient_descent(np.random.rand(), np.random.rand(), x, y, lr=1e-1)
+a, b, error = adam_gradient_descent(a_0, b_0, x, y, lr=1e-1)
 prediction = h(a,b,x)
 regression_subplot.plot(x, prediction, color="purple", label="adam")
 error_subplot.plot(error, color="purple", label="adam")
 print("a =",a,", b =",b)
 
-
-# In[236]:
-
-
 '''
 adamax
 '''
-a, b, error = adamax_gradient_descent(np.random.rand(), np.random.rand(), x, y, lr=1e-1)
+a, b, error = adamax_gradient_descent(a_0, b_0, x, y, lr=1e-1)
 prediction = h(a,b,x)
 regression_subplot.plot(x, prediction, color="#4cff00", label="adamax")
 error_subplot.plot(error, color="#4cff00", label="adamax")
 print("a =",a,", b =",b)
 
-
-# In[237]:
-
-
 '''
 adadelta
 '''
 ''' FIXME '''
-# a, b, error = adadelta_gradient_descent(np.random.rand(), np.random.rand(), x, y, lr=1e-1)
+# a, b, error = adadelta_gradient_descent(a_0, b_0, x, y, lr=1e-1)
 # prediction = h(a,b,x)
 # regression_subplot.plot(x, prediction, color="#00ffe9", label="adadelta")
 # error_subplot.plot(error, color="#00ffe9", label="adadelta")
 # print("a =",a,", b =",b)
 
-
-# In[238]:
-
-
 '''
 nesterov
 '''
-a, b, error = nesterov_gradient_descent(np.random.rand(), np.random.rand(), x, y, lr=1e-1, gamma=0.9)
+a, b, error = nesterov_gradient_descent(a_0, b_0, x, y, lr=1e-1, gamma=0.9)
 prediction = h(a,b,x)
 regression_subplot.plot(x, prediction, color="#D8A373", label="nesterov")
 error_subplot.plot(error, color="#D8A373", label="nesterov")
 print("a =",a,", b =",b)
 
-
-# In[239]:
-
-
 '''
 nadam
 '''
-a, b, error = nadam_gradient_descent(np.random.rand(), np.random.rand(), x, y, lr=1e-1)
+a, b, error = nadam_gradient_descent(a_0, b_0, x, y, lr=1e-1)
 prediction = h(a,b,x)
 regression_subplot.plot(x, prediction, color="orange", label="nadam")
 error_subplot.plot(error, color="orange", label="nadam")
 print("a =",a,", b =",b)
-
-
-# In[240]:
-
 
 #Set titles
 regression_subplot.set_title("Regression visualization")
@@ -423,4 +337,3 @@ error_subplot.set_title("Error visualization")
 regression_subplot.scatter(x, y, color="black", s=0.1)
 plt.legend(bbox_to_anchor=(0, -0.2), loc=9, borderaxespad=0.)
 plt.show()
-
