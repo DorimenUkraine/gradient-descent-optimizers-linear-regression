@@ -1,4 +1,4 @@
-# linear_regression_optimizers
+# gradient-descent-optimizers-linear-regression
 Gradient descent optimizers for linear regression.
 
 Here are the implemented algorithms :
