@@ -11,5 +11,7 @@ Here are the implemented algorithms :
 * Nesterov Accelerated Gradient
 * Nadam
 
+It compares the regression functions and the error evolution.
+
 ##### TODO:
 * Fix Adadelta optimizer
