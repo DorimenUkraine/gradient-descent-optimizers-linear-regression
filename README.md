@@ -1,3 +1,5 @@
+Theory: https://compsciclub.ru/media/courses/2018-autumn/spb-recommendation/materials/lecture02-linregr_1.pdf
+
 # gradient-descent-optimizers-linear-regression
 Gradient descent optimizers for linear regression.
 
